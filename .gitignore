@@ -1,0 +1,8 @@
+# Text files
+*.txt
+
+# Zip files
+*.tar
+*.tar.gz
+*.zip
+*.rar
