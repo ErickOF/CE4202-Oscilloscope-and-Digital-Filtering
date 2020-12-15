@@ -1,11 +1,17 @@
 # Text files
 *.txt
 
+# CSV files
+*.csv
+
 # Zip files
 *.tar
 *.tar.gz
 *.zip
 *.rar
+
+# VS Code settings
+.vscode/
 
 # Circuits files
 circuits/*(Security copy)
