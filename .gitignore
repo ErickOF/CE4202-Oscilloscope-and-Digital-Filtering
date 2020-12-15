@@ -6,3 +6,6 @@
 *.tar.gz
 *.zip
 *.rar
+
+# Circuits files
+circuits/*(Security copy)
