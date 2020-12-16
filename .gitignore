@@ -15,3 +15,10 @@
 
 # Circuits files
 circuits/*(Security copy)
+
+# Quartus files and directories
+*/output_files/
+*/db/
+*.sv.bak
+*.v.bak
+*.mif

@@ -1,3 +1,4 @@
+import hashlib
 import numpy as np
 import pandas as pd
 
@@ -32,18 +33,28 @@ def float2q15_16(file_name: str, time: np.array, samples: np.array):
     """
     q15_16_samples: list = []
 
-    for sample in samples:
+    for i, sample in enumerate(samples):
         # Convert float sample to Q15.16
         ones: int = int(23*sample/5)
         zeros: int = 23 - ones
-        q15_16_samples.append(f'{"0"*(9 + zeros)}{"1"*ones}')
+        value: int = int(f'{"0"*(9 + zeros)}{"1"*ones}', base=2)
+        hex_value: str = hex(value)[2:]
+        q15_16_samples.append(f'{i} :{"0"*(8 - len(hex_value))}{hex_value};')
 
     # Create and open files
-    samples_file: _io.TextIOWrapper = open('data_' + file_name, 'w')
-    time_file: _io.TextIOWrapper = open('time_' + file_name, 'w')
+    samples_file: _io.TextIOWrapper = open('data_' + file_name + '.mif', 'w')
+    time_file: _io.TextIOWrapper = open('time_' + file_name + '.txt', 'w')
 
-    # Save time
+    # Write header
+    samples_file.write(f'DEPTH = {samples.size}; \n')
+    samples_file.write(f'WIDTH = {32}; \n')
+    samples_file.write(f'ADDRESS_RADIX = DEC;\n')
+    samples_file.write(f'DATA_RADIX = HEX; \n')
+    samples_file.write(f'CONTENT \nBEGIN \n')
+
+    # Save time and samples
     samples_file.write('\n'.join([s for s in q15_16_samples]))
+    samples_file.write('\nEND;\n')
     time_file.write('\n'.join([str(t) for t in time]))
 
     # Close files
@@ -54,5 +65,5 @@ def float2q15_16(file_name: str, time: np.array, samples: np.array):
 if __name__ == '__main__':
     file_path = 'ChannelD.csv'
     time, samples = read_file(file_path, sep=';')
-    float2q15_16('sample.txt', time, samples)
+    float2q15_16('sample', time, samples)
 
