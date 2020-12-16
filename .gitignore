@@ -19,7 +19,10 @@ circuits/*(Security copy)
 # Quartus files and directories
 */output_files/
 */db/
+*/greybox_tmp/
 */incremental_db/
+*/simulation/
 *.sv.bak
 *.v.bak
 *.mif
+*.rpt
