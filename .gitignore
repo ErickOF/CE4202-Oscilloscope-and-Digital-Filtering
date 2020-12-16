@@ -19,6 +19,7 @@ circuits/*(Security copy)
 # Quartus files and directories
 */output_files/
 */db/
+*/incremental_db/
 *.sv.bak
 *.v.bak
 *.mif
